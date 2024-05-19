@@ -43,7 +43,7 @@ If you discover any security related issues, please email [info@javaabu.com](mai
 
 - [Javaabu Pvt. Ltd.](https://github.com/javaabu)
 - [Arushad Ahmed (@dash8x)](http://arushad.com)
-- [Falahabstr (@falahabstr)](https://github.com/falahabstr)
+- [Falah Abdul Sattar (@falahabstr)](https://github.com/falahabstr)
 - [All Contributors](../../contributors)
 
 ## License
