@@ -2,6 +2,7 @@
 
 namespace Javaabu\Geospatial\Tests;
 
+use Javaabu\Geospatial\Tests\TestSupport\Providers\TestServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Javaabu\Geospatial\GeospatialServiceProvider;
 
@@ -20,6 +21,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app)
     {
-        return [GeospatialServiceProvider::class];
+        return [
+            GeospatialServiceProvider::class,
+            TestServiceProvider::class,
+        ];
     }
 }
