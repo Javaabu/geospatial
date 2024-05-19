@@ -2,13 +2,12 @@
 
 namespace Javaabu\Geospatial\Tests;
 
+use Javaabu\Geospatial\GeospatialServiceProvider;
 use Javaabu\Geospatial\Tests\TestSupport\Providers\TestServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Javaabu\Geospatial\GeospatialServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();
