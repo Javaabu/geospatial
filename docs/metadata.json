@@ -1,5 +1,5 @@
 {
-    "name": "{Your Package}",
-    "description": "{package description}",
+    "name": "Geospatial",
+    "description": "Adds Geospatial attribute support to Laravel projects",
     "version": "1"
 }
