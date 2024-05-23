@@ -30,7 +30,7 @@ class HasCoordinatesMySqlTest extends TestCase
         $latitude = 4.175804;
         $longitude = 73.509337;
         $city->name = 'Male City';
-        $city->setCoordinates($latitude, $longitude);
+        $city->setPoint($latitude, $longitude);
 
         $city->save();
 
@@ -39,4 +39,33 @@ class HasCoordinatesMySqlTest extends TestCase
             'coordinates' => $city->toTestDbString(new Point($latitude, $longitude, Srid::WGS84)),
         ]);
     }
+
+    /** @test */
+    public function it_generates_lat_from_the_default_point_column(): void
+    {
+        $city = new City();
+        $latitude = 4.175804;
+        $longitude = 73.509337;
+        $city->name = 'Male City';
+        $city->setPoint($latitude, $longitude);
+
+        $city->save();
+
+        $this->assertEquals($latitude, $city->lat);
+    }
+
+    /** @test */
+    public function it_generates_lng_from_the_default_point_column(): void
+    {
+        $city = new City();
+        $latitude = 4.175804;
+        $longitude = 73.509337;
+        $city->name = 'Male City';
+        $city->setPoint($latitude, $longitude);
+
+        $city->save();
+
+        $this->assertEquals($longitude, $city->lng);
+    }
+
 }

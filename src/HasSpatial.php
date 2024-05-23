@@ -11,13 +11,13 @@ namespace Javaabu\Geospatial;
 
 use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\Objects\Geometry;
-use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial as EloquentHasSpatial;
 use Javaabu\Geospatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Objects\Polygon;
 
-trait HasCoordinates
+trait HasSpatial
 {
-    use HasSpatial;
+    use EloquentHasSpatial;
 
     /**
      * Get the latitude
@@ -27,7 +27,9 @@ trait HasCoordinates
      */
     public function getLatAttribute($value = null)
     {
-        return is_null($value) ? optional($this->coordinates)->latitude : $value;
+        $column = $this->getDefaultPointField();
+
+        return is_null($value) ? optional($this->{$column})->latitude : $value;
     }
 
     /**
@@ -38,19 +40,23 @@ trait HasCoordinates
      */
     public function getLngAttribute($value = null)
     {
-        return is_null($value) ? optional($this->coordinates)->longitude : $value;
+        $column = $this->getDefaultPointField();
+
+        return is_null($value) ? optional($this->{$column})->longitude : $value;
     }
 
-    /**
-     * Update coords
-     *
-     * @param float $lat
-     * @param float $lng
-     * @return void
-     */
-    public function setCoordinates($lat, $lng, $srid = Srid::WGS84)
+    public function getDefaultPointField(): string
     {
-        $this->coordinates = new Point($lat, $lng, $srid);
+        return 'coordinates';
+    }
+
+    public function setPoint($lat, $lng, $srid = Srid::WGS84, string $column = '')
+    {
+        if (! $column) {
+            $column = $this->getDefaultPointField();
+        }
+
+        $this->{$column} = new Point($lat, $lng, $srid);
     }
 
     /**

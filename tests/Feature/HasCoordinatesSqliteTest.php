@@ -30,7 +30,7 @@ class HasCoordinatesSqliteTest extends TestCase
         $latitude = 4.175804;
         $longitude = 73.509337;
         $city->name = 'Male City';
-        $city->setCoordinates($latitude, $longitude);
+        $city->setPoint($latitude, $longitude);
 
         $city->save();
 
