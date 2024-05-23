@@ -3,6 +3,7 @@
 namespace Javaabu\Geospatial\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Javaabu\Geospatial\Objects\Point;
 use Javaabu\Geospatial\Tests\TestCase;
 use Javaabu\Geospatial\Tests\TestSupport\Models\City;
@@ -14,7 +15,10 @@ class HasCoordinatesMySqlTest extends TestCase
 
     public function setUp(): void
     {
+        RefreshDatabaseState::$migrated = false;
+
         $_ENV['DB_CONNECTION'] = 'mysql';
+        $_ENV['DB_DATABASE'] = 'geospatial';
 
         parent::setUp();
     }
