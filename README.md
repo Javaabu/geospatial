@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/javaabu/geospatial.svg?style=flat-square)](https://packagist.org/packages/javaabu/geospatial)
 [![Test Status](../../actions/workflows/run-tests.yml/badge.svg)](../../actions/workflows/run-tests.yml)
-[![Code Style Status](../../actions/workflows/php-cs-fixer.yml/badge.svg)](../../actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/javaabu/geospatial.svg?style=flat-square)](https://packagist.org/packages/javaabu/geospatial)
 
 
