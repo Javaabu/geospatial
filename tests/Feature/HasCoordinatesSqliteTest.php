@@ -8,9 +8,18 @@ use Javaabu\Geospatial\Tests\TestCase;
 use Javaabu\Geospatial\Tests\TestSupport\Models\City;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
 
-class HasCoordinatesTest extends TestCase
+class HasCoordinatesSqliteTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE'] = ':memory:';
+
+        parent::setUp();
+    }
+
     /** @test */
     public function it_can_set_coordinates_for_sqlite(): void
     {
