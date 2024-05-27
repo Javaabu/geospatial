@@ -41,6 +41,22 @@ class HasCoordinatesMySqlTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_coordinates_for_mysql(): void
+    {
+        $city = new City();
+        $latitude = 4.175804;
+        $longitude = 73.509337;
+        $city->name = 'Male City';
+        $city->setPoint($latitude, $longitude);
+
+        $city->save();
+
+        $city->refresh();
+
+        $this->assertEquals($latitude, $city->lat);
+    }
+
+    /** @test */
     public function it_generates_lat_from_the_default_point_column(): void
     {
         $city = new City();

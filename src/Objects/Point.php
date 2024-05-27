@@ -2,11 +2,14 @@
 
 namespace Javaabu\Geospatial\Objects;
 
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Query\Expression as ExpressionContract;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 use Javaabu\Geospatial\GeometryCast;
 use Javaabu\Geospatial\Geospatial;
+use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\GeometryExpression;
 
 class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
@@ -20,5 +23,50 @@ class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
         $wkt = $this->toWkt();
 
         return DB::raw('"' . (new GeometryExpression("ST_GeomFromText('{$wkt}', {$this->srid})"))->normalize($connection) . '"');
+    }
+
+    public static function castUsing(array $arguments): CastsAttributes
+    {
+        return new GeometryCast(static::class);
+    }
+
+    public static function fromWkt(string $wkt, int|Srid $srid = 0): static
+    {
+        $geometry = Factory::parse($wkt);
+        $geometry->srid = $srid instanceof Srid ? $srid->value : $srid;
+
+        if (! ($geometry instanceof static)) {
+            throw new InvalidArgumentException(
+                sprintf('Expected %s, %s given.', static::class, $geometry::class)
+            );
+        }
+
+        return $geometry;
+    }
+
+    public static function fromWkb(string $wkb): static
+    {
+        if (ctype_xdigit($wkb)) {
+            // @codeCoverageIgnoreStart
+            $geometry = Factory::parse($wkb);
+            // @codeCoverageIgnoreEnd
+        } else {
+            $srid = substr($wkb, 0, 4);
+            // @phpstan-ignore-next-line
+            $srid = unpack('L', $srid)[1];
+
+            $wkb = substr($wkb, 4);
+
+            $geometry = Factory::parse($wkb);
+            $geometry->srid = $srid;
+        }
+
+        if (! ($geometry instanceof static)) {
+            throw new InvalidArgumentException(
+                sprintf('Expected %s, %s given.', static::class, $geometry::class)
+            );
+        }
+
+        return $geometry;
     }
 }
