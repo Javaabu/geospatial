@@ -10,7 +10,6 @@ use InvalidArgumentException;
 use Javaabu\Geospatial\Factory;
 use Javaabu\Geospatial\GeometryCast;
 use Javaabu\Geospatial\Geospatial;
-use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\GeometryExpression;
 
 class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
@@ -31,10 +30,10 @@ class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
         return new GeometryCast(static::class);
     }
 
-    public static function fromWkt(string $wkt, int|Srid $srid = 0): static
+    public static function fromWkt(string $wkt, int $srid = 0): static
     {
         $geometry = Factory::parse($wkt);
-        $geometry->srid = $srid instanceof Srid ? $srid->value : $srid;
+        $geometry->srid = $srid;
 
         if (! ($geometry instanceof static)) {
             throw new InvalidArgumentException(
