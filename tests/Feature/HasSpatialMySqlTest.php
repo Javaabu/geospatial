@@ -25,6 +25,22 @@ class HasSpatialMySqlTest extends TestCase
     }
 
     /** @test */
+    public function it_can_search_within_a_polygon_for_mysql(): void
+    {
+        $city = new City();
+        $city->name = 'Male City';
+        $city->setPoint(4.175804, 73.509337);
+        $wkt = 'POLYGON ((73.50932514628285 4.175929944808645,73.50954911073559 4.175730219415812,73.50914768804103 4.17570881870468,73.50932514628285 4.175929944808645))';
+
+        $city->save();
+
+        $this->assertEquals('Male City', City::withinBounds($wkt)->first()->name);
+
+        $in_uligan = '(72.92683934689452 7.0841231111032235,72.92706331134727 7.083924382773967,72.9266618886527 7.083903088896789,72.92683934689452 7.0841231111032235)';
+        $this->assertNull(City::withinBounds($in_uligan)->first());
+    }
+
+    /** @test */
     public function it_can_set_polygon_for_mysql(): void
     {
         $city = new City();

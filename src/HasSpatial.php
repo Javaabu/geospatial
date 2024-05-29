@@ -79,13 +79,17 @@ trait HasSpatial
      * @param $bounds
      * @return mixed
      */
-    public function scopeWithinBounds($query, $bounds)
+    public function scopeWithinBounds($query, $bounds, string $column = '', $srid = Srid::WGS84)
     {
         if (! $bounds instanceof Polygon) {
-            $bounds = Polygon::fromWKT($bounds);
+            $bounds = Polygon::fromWKT($bounds, $srid);
         }
 
-        return $query->within('coordinates', $bounds);
+        if (! $column) {
+            $column = $this->getDefaultPointField();
+        }
+
+        return $query->whereWithin($column, $bounds);
     }
 
     public function toTestDbString(Geometry $geometry)
