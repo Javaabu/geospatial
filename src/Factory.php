@@ -1,12 +1,15 @@
 <?php
 
-namespace Javaabu\Geospatial\Objects;
+namespace Javaabu\Geospatial;
 
 use Geometry as geoPHPGeometry;
 use geoPHP;
 use InvalidArgumentException;
+use Javaabu\Geospatial\Objects\Point;
+use Javaabu\Geospatial\Objects\Polygon;
 use MatanYadaev\EloquentSpatial\Objects\Geometry;
 use Point as geoPHPPoint;
+use Polygon as geoPHPPolygon;
 
 class Factory extends \MatanYadaev\EloquentSpatial\Factory
 {
@@ -33,6 +36,15 @@ class Factory extends \MatanYadaev\EloquentSpatial\Factory
             }
 
             return new Point($geometry->coords[1], $geometry->coords[0], $srid);
+        }
+
+        $components = collect($geometry->components)
+            ->map(static function (geoPHPGeometry $geometryComponent): Geometry {
+                return self::createFromGeometry($geometryComponent);
+            });
+
+        if ($geometry::class === geoPHPPolygon::class) {
+            return new Polygon($components, $srid);
         }
 
         return parent::createFromGeometry($geometry);

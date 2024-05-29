@@ -9,11 +9,11 @@
 
 namespace Javaabu\Geospatial;
 
+use Javaabu\Geospatial\Objects\Polygon;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\Objects\Geometry;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial as EloquentHasSpatial;
 use Javaabu\Geospatial\Objects\Point;
-use MatanYadaev\EloquentSpatial\Objects\Polygon;
 
 trait HasSpatial
 {
@@ -50,13 +50,26 @@ trait HasSpatial
         return 'coordinates';
     }
 
-    public function setPoint($lat, $lng, $srid = Srid::WGS84, string $column = '')
+    public function getDefaultPolygonField(): string
+    {
+        return 'boundary';
+    }
+
+    public function setPoint($lat, $lng, string $column = '', $srid = Srid::WGS84)
     {
         if (! $column) {
             $column = $this->getDefaultPointField();
         }
 
         $this->{$column} = new Point($lat, $lng, $srid);
+    }
+
+    public function setPolygon(string $wkt, string $column = '', $srid = Srid::WGS84) {
+        if (! $column) {
+            $column = $this->getDefaultPolygonField();
+        }
+
+        $this->{$column} = Polygon::fromWkt($wkt, $srid);
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Query\Expression as ExpressionContract;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Javaabu\Geospatial\Factory;
 use Javaabu\Geospatial\GeometryCast;
@@ -13,7 +14,7 @@ use Javaabu\Geospatial\Geospatial;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\GeometryExpression;
 
-class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
+class Polygon extends \MatanYadaev\EloquentSpatial\Objects\Polygon
 {
     public function toSqlExpression(ConnectionInterface $connection): ExpressionContract
     {
@@ -33,6 +34,12 @@ class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
 
     public static function fromWkt(string $wkt, int|Srid $srid = 0): static
     {
+        $wkt = Str::upper($wkt);
+
+        if (! Str::startsWith($wkt, 'POLYGON')) {
+            $wkt = "POLYGON ($wkt)";
+        }
+
         $geometry = Factory::parse($wkt);
         $geometry->srid = $srid instanceof Srid ? $srid->value : $srid;
 

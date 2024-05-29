@@ -13,7 +13,8 @@ return new class () extends Migration {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->geometry('coordinates', 'point', 4326)->index();
+            $table->geometry('coordinates', 'point', 4326)->nullable();
+            $table->geometry('boundary', 'polygon', 4326)->nullable();
             $table->timestamps();
         });
     }
