@@ -11,7 +11,6 @@ use InvalidArgumentException;
 use Javaabu\Geospatial\Factory;
 use Javaabu\Geospatial\GeometryCast;
 use Javaabu\Geospatial\Geospatial;
-use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\GeometryExpression;
 
 class Polygon extends \MatanYadaev\EloquentSpatial\Objects\Polygon
@@ -32,7 +31,7 @@ class Polygon extends \MatanYadaev\EloquentSpatial\Objects\Polygon
         return new GeometryCast(static::class);
     }
 
-    public static function fromWkt(string $wkt, int|Srid $srid = 0): static
+    public static function fromWkt(string $wkt, int $srid = 0): static
     {
         $wkt = Str::upper($wkt);
 
@@ -41,7 +40,7 @@ class Polygon extends \MatanYadaev\EloquentSpatial\Objects\Polygon
         }
 
         $geometry = Factory::parse($wkt);
-        $geometry->srid = $srid instanceof Srid ? $srid->value : $srid;
+        $geometry->srid = $srid;
 
         if (! ($geometry instanceof static)) {
             throw new InvalidArgumentException(
