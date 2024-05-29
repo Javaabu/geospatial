@@ -8,7 +8,6 @@ use Javaabu\Geospatial\Objects\Point;
 use Javaabu\Geospatial\Objects\Polygon;
 use Javaabu\Geospatial\Tests\TestCase;
 use Javaabu\Geospatial\Tests\TestSupport\Models\City;
-use MatanYadaev\EloquentSpatial\Enums\Srid;
 
 class ValidationRulesTest extends TestCase
 {
