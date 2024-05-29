@@ -7,7 +7,10 @@
 
 
 ## Introduction
+
 Adds Geospatial attribute support to Laravel projects
+
+For Laravel 9 support use version 0.*
 
 ## Documentation
 
