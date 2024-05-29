@@ -2,11 +2,10 @@
 
 namespace Javaabu\Geospatial;
 
-use Illuminate\Contracts\Database\Query\Expression as ExpressionContract;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use MatanYadaev\EloquentSpatial\GeometryExpression;
 use MatanYadaev\EloquentSpatial\Objects\Geometry;
 
 class GeometryCast extends \MatanYadaev\EloquentSpatial\GeometryCast
@@ -21,7 +20,7 @@ class GeometryCast extends \MatanYadaev\EloquentSpatial\GeometryCast
 
     /**
      * @param  Model  $model
-     * @param  string|ExpressionContract|null  $value
+     * @param  string|Expression|null  $value
      * @param  array<string, mixed>  $attributes
      */
     public function get($model, string $key, $value, array $attributes): ?Geometry
@@ -34,8 +33,8 @@ class GeometryCast extends \MatanYadaev\EloquentSpatial\GeometryCast
             return null;
         }
 
-        if (! $value instanceof ExpressionContract) {
-            $value = DB::raw((new GeometryExpression($value))->normalize($model->getConnection()));
+        if (! $value instanceof Expression) {
+            $value = DB::raw($value);
         }
 
         $wkt = $this->extractWktFromExpression($value, $model->getConnection());
@@ -44,7 +43,7 @@ class GeometryCast extends \MatanYadaev\EloquentSpatial\GeometryCast
         return $this->className::fromWkt($wkt, $srid);
     }
 
-    protected function extractWktFromExpression(ExpressionContract $expression, Connection $connection): string
+    protected function extractWktFromExpression(Expression $expression, Connection $connection): string
     {
         $grammar = $connection->getQueryGrammar();
         $expressionValue = $expression->getValue($grammar);
@@ -54,7 +53,7 @@ class GeometryCast extends \MatanYadaev\EloquentSpatial\GeometryCast
         return $match[1];
     }
 
-    protected function extractSridFromExpression(ExpressionContract $expression, Connection $connection): int
+    protected function extractSridFromExpression(Expression $expression, Connection $connection): int
     {
         $grammar = $connection->getQueryGrammar();
         $expressionValue = $expression->getValue($grammar);

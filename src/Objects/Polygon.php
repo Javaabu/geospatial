@@ -3,7 +3,7 @@
 namespace Javaabu\Geospatial\Objects;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Contracts\Database\Query\Expression as ExpressionContract;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -11,11 +11,10 @@ use InvalidArgumentException;
 use Javaabu\Geospatial\Factory;
 use Javaabu\Geospatial\GeometryCast;
 use Javaabu\Geospatial\Geospatial;
-use MatanYadaev\EloquentSpatial\GeometryExpression;
 
 class Polygon extends \MatanYadaev\EloquentSpatial\Objects\Polygon
 {
-    public function toSqlExpression(ConnectionInterface $connection): ExpressionContract
+    public function toSqlExpression(ConnectionInterface $connection): Expression
     {
         if (Geospatial::supported($connection)) {
             return parent::toSqlExpression($connection);
@@ -23,7 +22,7 @@ class Polygon extends \MatanYadaev\EloquentSpatial\Objects\Polygon
 
         $wkt = $this->toWkt();
 
-        return DB::raw('"' . (new GeometryExpression("ST_GeomFromText('{$wkt}', {$this->srid})"))->normalize($connection) . '"');
+        return DB::raw('"' . "ST_GeomFromText('{$wkt}', {$this->srid})" . '"');
     }
 
     public static function castUsing(array $arguments): CastsAttributes
