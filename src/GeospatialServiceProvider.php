@@ -5,7 +5,6 @@ namespace Javaabu\Geospatial;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Javaabu\Geospatial\Objects\Polygon;
-use MatanYadaev\EloquentSpatial\Enums\Srid;
 
 class GeospatialServiceProvider extends ServiceProvider
 {
@@ -33,7 +32,7 @@ class GeospatialServiceProvider extends ServiceProvider
          * Rule works as wkt_polygon:srid
          */
         Validator::extend('wkt_geo_polygon', function ($attribute, $value, $parameters) {
-            $srid = $parameters[0] ?? Srid::WGS84;
+            $srid = $parameters[0] ?? 4326;
 
             try {
                 /** @var Polygon $polygon */
