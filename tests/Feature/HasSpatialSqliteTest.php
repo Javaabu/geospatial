@@ -8,7 +8,6 @@ use Javaabu\Geospatial\Objects\Point;
 use Javaabu\Geospatial\Objects\Polygon;
 use Javaabu\Geospatial\Tests\TestCase;
 use Javaabu\Geospatial\Tests\TestSupport\Models\City;
-use MatanYadaev\EloquentSpatial\Enums\Srid;
 
 class HasSpatialSqliteTest extends TestCase
 {
@@ -36,7 +35,7 @@ class HasSpatialSqliteTest extends TestCase
 
         $this->assertDatabaseHas('cities', [
             'name' => 'Male City',
-            'boundary' => $city->toTestDbString(Polygon::fromWkt($wkt, Srid::WGS84)),
+            'boundary' => $city->toTestDbString(Polygon::fromWkt($wkt, 4326)),
         ]);
     }
 
@@ -67,7 +66,7 @@ class HasSpatialSqliteTest extends TestCase
 
         $this->assertDatabaseHas('cities', [
             'name' => 'Male City',
-            'coordinates' => $city->toTestDbString(new Point($latitude, $longitude, Srid::WGS84)),
+            'coordinates' => $city->toTestDbString(new Point($latitude, $longitude, 4326)),
         ]);
     }
 
