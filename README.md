@@ -19,6 +19,15 @@ You can install the package via composer:
 composer require javaabu/geospatial
 ```
 
+
+## Documentation
+
+You'll find the documentation on [https://docs.javaabu.com/docs/geospatial](https://docs.javaabu.com/docs/geospatial).
+
+Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the media library? Feel free to create an [issue](../../issues) on GitHub, we'll try to address it as soon as possible.
+
+If you've found a bug regarding security please mail [info@javaabu.com](mailto:info@javaabu.com) instead of using the issue tracker.
+
 ## Testing
 
 You can run the tests with
