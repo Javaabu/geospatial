@@ -1,5 +1,5 @@
 ---
-title: Preparing The Model
+title: Search For Points Within a Polygon Boundary
 sidebar_position: 4
 ---
 
