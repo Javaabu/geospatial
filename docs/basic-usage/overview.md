@@ -8,7 +8,7 @@ This is a sample migration for a `City` model as an example.
 
 :::danger
 
-make sure the database geospatial column has `4326` as `SRID`.
+Make sure the database geospatial column has `4326` as `SRID`.
 
 :::
 
@@ -106,7 +106,7 @@ The package supports using a `wkt` string to define the points of the polygon.
 
 :::info
 
-wkt could either have the POLYGON string surrounding the points or not, the package adds the string POLYGON if it's not there.
+Wkt could either have the POLYGON string surrounding the points or not, the package adds the string POLYGON if it's not there.
 
 $wkt = 'POLYGON((73.5092 4.1758, 73.5094 4.1758, 73.5094 4.1757, 73.5092 4.1757, 73.5092 4.1758))';
 
