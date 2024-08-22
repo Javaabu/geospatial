@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/javaabu/geospatial.svg?style=flat-square)](https://packagist.org/packages/javaabu/geospatial)
 [![Test Status](../../actions/workflows/run-tests.yml/badge.svg)](../../actions/workflows/run-tests.yml)
+![Code Coverage Badge](./.github/coverage.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/javaabu/geospatial.svg?style=flat-square)](https://packagist.org/packages/javaabu/geospatial)
 
 
