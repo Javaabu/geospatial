@@ -31,7 +31,7 @@ class Point extends \MatanYadaev\EloquentSpatial\Objects\Point
         return new GeometryCast(static::class);
     }
 
-    public static function fromWkt(string $wkt, int|Srid $srid = 0): static
+    public static function fromWkt(string $wkt, int|Srid|null $srid = 0): static
     {
         $geometry = Factory::parse($wkt);
         $geometry->srid = $srid instanceof Srid ? $srid->value : $srid;
