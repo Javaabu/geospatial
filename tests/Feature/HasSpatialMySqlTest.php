@@ -9,6 +9,7 @@ use Javaabu\Geospatial\Objects\Polygon;
 use Javaabu\Geospatial\Tests\TestCase;
 use Javaabu\Geospatial\Tests\TestSupport\Models\City;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
+use PHPUnit\Framework\Attributes\Test;
 
 class HasSpatialMySqlTest extends TestCase
 {
@@ -24,7 +25,7 @@ class HasSpatialMySqlTest extends TestCase
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_search_within_a_polygon_for_mysql(): void
     {
         $city = new City();
@@ -40,7 +41,7 @@ class HasSpatialMySqlTest extends TestCase
         $this->assertNull(City::withinBounds($in_uligan)->first());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_polygon_for_mysql(): void
     {
         $city = new City();
@@ -56,7 +57,7 @@ class HasSpatialMySqlTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_polygon_for_mysql(): void
     {
         $city = new City();
@@ -70,7 +71,7 @@ class HasSpatialMySqlTest extends TestCase
         $this->assertEquals($wkt, $city->boundary->toWkt());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_coordinates_for_mysql(): void
     {
         $city = new City();
@@ -87,7 +88,7 @@ class HasSpatialMySqlTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_coordinates_for_mysql(): void
     {
         $city = new City();
@@ -103,7 +104,7 @@ class HasSpatialMySqlTest extends TestCase
         $this->assertEquals($latitude, $city->lat);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_lat_from_the_default_point_column(): void
     {
         $city = new City();
@@ -117,7 +118,7 @@ class HasSpatialMySqlTest extends TestCase
         $this->assertEquals($latitude, $city->lat);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_lng_from_the_default_point_column(): void
     {
         $city = new City();

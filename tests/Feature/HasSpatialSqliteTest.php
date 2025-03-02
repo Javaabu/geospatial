@@ -9,6 +9,7 @@ use Javaabu\Geospatial\Objects\Polygon;
 use Javaabu\Geospatial\Tests\TestCase;
 use Javaabu\Geospatial\Tests\TestSupport\Models\City;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
+use PHPUnit\Framework\Attributes\Test;
 
 class HasSpatialSqliteTest extends TestCase
 {
@@ -24,7 +25,7 @@ class HasSpatialSqliteTest extends TestCase
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_polygon_for_sqlite(): void
     {
         $city = new City();
@@ -40,7 +41,7 @@ class HasSpatialSqliteTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_polygon_for_sqlite(): void
     {
         $city = new City();
@@ -54,7 +55,7 @@ class HasSpatialSqliteTest extends TestCase
         $this->assertEquals($wkt, $city->boundary->toWkt());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_coordinates_for_sqlite(): void
     {
         $city = new City();
@@ -71,7 +72,7 @@ class HasSpatialSqliteTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_coordinates_for_sqlite(): void
     {
         $city = new City();
