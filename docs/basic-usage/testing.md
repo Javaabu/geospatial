@@ -1,6 +1,6 @@
 ---
 title: Testing
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 Since by default, sqlite doesn't support spatial columns, the `HasSpatial` trait adds a `toTestDbString` that supports testing the geospatial column for both MySQL and sqlite.
