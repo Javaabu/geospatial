@@ -4,6 +4,7 @@ namespace Javaabu\Geospatial;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Javaabu\Geospatial\Objects\Point;
 use Javaabu\Geospatial\Objects\Polygon;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
 
@@ -22,8 +23,10 @@ class GeospatialServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        \MatanYadaev\EloquentSpatial\EloquentSpatial::usePoint(Point::class);
+        \MatanYadaev\EloquentSpatial\EloquentSpatial::usePolygon(Polygon::class);
     }
+
 
     protected function registerCustomValidationRules()
     {
