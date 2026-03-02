@@ -20,7 +20,6 @@ You can install the package via composer:
 composer require javaabu/geospatial
 ```
 
-
 ## Documentation
 
 You'll find the documentation on [https://docs.javaabu.com/docs/geospatial](https://docs.javaabu.com/docs/geospatial).
